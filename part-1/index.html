@@ -1,0 +1,117 @@
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>Part 1</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
+	<style>
+		html,
+		body {
+			margin:  0;
+			padding: 10px;
+			color: black;
+			background-color: white;
+			font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+			font-size:   18px;
+			line-height: 1.36em;
+		}
+    </style>
+</head>
+<body>
+    <h1>Palo Alto Weather Report</h1>
+	<div id="content">
+		<div class="todayTitle">Today</div>
+		<div id="current"></div>
+		<div id="forecast"></div>
+	</div>
+</body>
+	<script>
+		wUrl = "https://www.sfchronicle.com/external/weather/weather.json?callback=hdnWeatherJsonpCallback"
+	
+	function requestWeatherCall(url) {
+	  
+	  const head = document.head;
+      const script = document.createElement("script");
+
+      script.setAttribute("src", url);
+      head.appendChild(script);
+      head.removeChild(script);
+    }
+
+    //Predefined callback function    
+    function hdnWeatherJsonpCallback(data) {
+	  console.log(data.cities[9]); // Response data from the server
+	  
+	  const paloAltoWeatherCurrentDay = data.cities[9].current[0]
+	  
+	  const paloAltoWeatherWeekly = data.cities[9];
+
+
+	  const currentTemp = paloAltoWeatherCurrentDay.temp + "&#176";
+	  const currentCondition = paloAltoWeatherCurrentDay.condition;
+	  const fiveDays = paloAltoWeatherWeekly.weekly;
+	   
+	  fiveDays.length = 5; // To only take five days of data
+
+
+
+	  //Current Weather Conditions
+
+	  // Assumption:  Part of the challenge is that I shouldn't just alter the html to hardcode this in
+
+	  const node = document.createElement("div");
+	  node.innerHTML = currentTemp;
+	 
+	  const node2 = document.createElement("div"); 
+	  node2.innerHTML = currentCondition;
+
+
+	  document.getElementById('current').appendChild(node);
+	  document.getElementById('current').appendChild(node2);	
+	  
+
+
+	  //Weekly Forecast Conditions
+
+	  //Assumption: I shouldn't alter the html to hardcode this weekly forecast in
+
+	  //Assumption:  I should place the weekly forecast into the "forecast" div
+
+	  const forecastNode = document.createElement("div");
+	
+	  
+     // Put each day of the forecast data into its own div for later styling 
+	  fiveDays.map((day,index) => {
+			const nextDay = paloAltoWeatherWeekly.weekly[index].day;
+			console.log(nextDay);
+
+			const nextCondition = paloAltoWeatherWeekly.weekly[index].daycondition;
+			console.log(nextCondition);
+		
+			const newDay = document.createElement("div");//Parent div
+
+			const days = document.createElement("p"); //Child div
+			const condition = document.createElement("p");
+
+			days.innerHTML = nextDay;
+			condition.innerHTML = nextCondition;
+
+			newDay.appendChild(days);
+			newDay.appendChild(condition);
+			
+			//Add all days to one div for display
+			forecastNode.appendChild(newDay);
+
+	  }, 2);
+
+
+	  // Add weekly forecast data to display
+	  document.getElementById("forecast").appendChild(forecastNode);
+
+    }
+
+	requestWeatherCall(wUrl);
+	</script> 
+
+</html>
