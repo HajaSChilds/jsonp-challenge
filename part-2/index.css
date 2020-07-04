@@ -1,0 +1,47 @@
+html,body {
+    margin:  0;
+    padding: 10px;
+    color:navy;
+    background-color:white;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size:   18px;
+    line-height: 1.36em;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.4em;
+}
+
+#menu {
+    text-align: center;
+}
+
+#cities {
+    font-size: 1.4em;   
+} 
+
+.todayTitle {
+    color:green;
+    font-weight: bold;
+    text-align: center;
+}
+
+#current,.todayTitle {
+    padding: 30px;
+    text-align: center;
+    font-size: 2em;
+}
+
+
+#forecast > div {
+    display:flex;
+    justify-content:space-between;
+    padding: 50px 10px 0px 10px;
+}
+
+#forecast > div > div {
+    width:20%;
+    padding:10px;
+    font-size: 1.2em;
+}
