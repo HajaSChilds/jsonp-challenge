@@ -2,7 +2,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>Part 1</title>
+	<title>Part 2</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
 	<link rel="stylesheet" href="./index.css">
@@ -10,18 +10,18 @@
 <body>
     <h1> Weather Report</h1>
 	<div id="content">
-		<div id="menu">
-			<form action="">
-				<select id="cities">
-					<option value="1">Antioch</option>
-					<option selected="selected" value = "0">Palo Alto<option>	
+		<div id="menu">	
+				<select id="cities">	
 				</select>
-			</form>
 		</div>
 		<div class="todayTitle">Today</div>
 		<div id="current"></div>
 		<div id="forecast"></div>
 	</div>
-</body>
-	<script src="index.js"></script>	
+</body>	
+	<script src="index.js"></script>
+	<script>
+		document.getElementById("cities")
+			.addEventListener("onchange", displayWeather()); 
+	</script>
 </html>

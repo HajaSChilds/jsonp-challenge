@@ -38,10 +38,16 @@ h1 {
     display:flex;
     justify-content:space-between;
     padding: 50px 10px 0px 10px;
+    text-align: center;
 }
 
 #forecast > div > div {
     width:20%;
+    min-height: 250px;
     padding:10px;
     font-size: 1.2em;
+    border: 2px navy solid;
+    background-color:green;
+    opacity: 70%;
+
 }
