@@ -11,7 +11,7 @@
     <h1> Weather Report</h1>
 	<div id="content">
 		<div id="menu">	
-				<select id="cities">	
+				<select onchange = "switchCity(this.value)" id="cities">	
 				</select>
 		</div>
 		<div class="todayTitle">Today</div>
@@ -20,8 +20,5 @@
 	</div>
 </body>	
 	<script src="index.js"></script>
-	<script>
-		document.getElementById("cities")
-			.addEventListener("onchange", displayWeather()); 
-	</script>
+	
 </html>

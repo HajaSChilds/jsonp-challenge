@@ -1,6 +1,6 @@
 
 
-// Load data from json
+// Load data from json and parse
 function getWeatherData(url) {
 
     //Add url to head tag
@@ -30,15 +30,16 @@ function getWeatherData(url) {
     addScript();
     
 
+
     //Define jsonp callback function    
     function hdnWeatherJsonpCallback(data) {
 
-      //add cities to dropdown menu  
+       cityArray = data.cities;
+        console.log(cityArray); 
+      
+        //add cities to dropdown menu  
         function loadCities() {
     
-            let cityArray = data.cities;
-            console.log(cityArray); 
-
             cityArray.forEach((city)=> {
                 console.log(city.geoloc.city);
                 let cityName = city.geoloc.city;
@@ -48,6 +49,7 @@ function getWeatherData(url) {
 
                 cityNode.setAttribute("value", index);
 
+                
                 //shows Palo Alto as default
                 if(index == 9) {
                 cityNode.setAttribute("selected", "selected");  
@@ -57,34 +59,45 @@ function getWeatherData(url) {
 
                 dropdown = document.getElementById("cities");
                 dropdown.appendChild(cityNode);
-                valueCity = dropdown.value;
+                valueCity = dropdown.value; // Define first value for selected city
+                return cityArray;
             })
             
         }
      
       loadCities();
-      document
-        .getElementById("cities")
-        .addEventListener("onchange", displayWeather); 
-      
-        displayWeather(data, valueCity);
-       
-      
-      // Define variable for selected city
-       //Changes the data when the dropdown menu changes
-      let whichCity = valueCity;
-      console.log("whichCity: ", whichCity);
-    //Changes the data when the dropdown menu changes
-    
-        
+     
+      displayWeather(cityArray, valueCity);
+            
     }
     
 }
 
-function displayWeather(data,whichCity) {
-  let weatherCurrentDay = data.cities[whichCity].current[0];
 
-  let weatherWeekly = data.cities[whichCity];
+//Changes the data when the dropdown menu changes
+function switchCity(valueCity) {    
+    console.log("switchCalled: ", valueCity);
+    cityArray = this.cityArray;
+    console.log("switchCityArray: ", cityArray);
+
+    //Removes current city weather data
+    document.getElementById("current").innerHTML= null;
+    document.getElementById('forecast').innerHTML = null;
+
+    // Runs function to display weather on the screen again with new city value
+    displayWeather(cityArray, valueCity);
+}
+
+//Function to display weather on the screen
+function displayWeather(cityArray, valueCity) { 
+  
+  let whichCity = parseInt(valueCity);
+  console.log("whichCity: ", whichCity);
+  console.log("cityArray: ", cityArray);
+  
+  let weatherCurrentDay = cityArray[whichCity].current[0];
+
+  let weatherWeekly = cityArray[whichCity];
 
   let currentTemp = weatherCurrentDay.temp + "&#176";
   let currentCondition = weatherCurrentDay.condition;
@@ -109,7 +122,6 @@ function displayWeather(data,whichCity) {
   //Weekly Forecast Conditions
 
   //Assumption: I shouldn't alter the html to hardcode this weekly forecast in
-
   //Assumption:  I should place the weekly forecast into the "forecast" div
 
   const forecastNode = document.createElement("div");
