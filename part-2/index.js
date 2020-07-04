@@ -1,6 +1,6 @@
 
 
-// Load data from json and parse
+// Load data from jsonp callback
 function getWeatherData(url) {
 
     //Add url to head tag
@@ -34,22 +34,20 @@ function getWeatherData(url) {
     //Define jsonp callback function    
     function hdnWeatherJsonpCallback(data) {
 
-       cityArray = data.cities;
+       cityArray = data.cities;//Global variable to be available to all functions
         console.log(cityArray); 
       
         //add cities to dropdown menu  
         function loadCities() {
     
             cityArray.forEach((city)=> {
-                console.log(city.geoloc.city);
+              
                 let cityName = city.geoloc.city;
-                console.log("index: ", cityArray.indexOf(city))
                 let index = cityArray.indexOf(city)
+                
                 const cityNode = document.createElement('option');
-
                 cityNode.setAttribute("value", index);
 
-                
                 //shows Palo Alto as default
                 if(index == 9) {
                 cityNode.setAttribute("selected", "selected");  
@@ -59,8 +57,8 @@ function getWeatherData(url) {
 
                 dropdown = document.getElementById("cities");
                 dropdown.appendChild(cityNode);
-                valueCity = dropdown.value; // Define first value for selected city
-                return cityArray;
+                valueCity = dropdown.value; // Define first value for selected city    
+
             })
             
         }
@@ -76,10 +74,7 @@ function getWeatherData(url) {
 
 //Changes the data when the dropdown menu changes
 function switchCity(valueCity) {    
-    console.log("switchCalled: ", valueCity);
-    cityArray = this.cityArray;
-    console.log("switchCityArray: ", cityArray);
-
+  
     //Removes current city weather data
     document.getElementById("current").innerHTML= null;
     document.getElementById('forecast').innerHTML = null;
@@ -88,12 +83,16 @@ function switchCity(valueCity) {
     displayWeather(cityArray, valueCity);
 }
 
+
+
 //Function to display weather on the screen
 function displayWeather(cityArray, valueCity) { 
   
+  //checks time to see if dark mode applies
+  darkMode();
+
   let whichCity = parseInt(valueCity);
-  console.log("whichCity: ", whichCity);
-  console.log("cityArray: ", cityArray);
+  
   
   let weatherCurrentDay = cityArray[whichCity].current[0];
 
@@ -108,7 +107,7 @@ function displayWeather(cityArray, valueCity) {
 
   //Current Weather Conditions
 
-  // Assumption:  Part of the challenge is that I shouldn't just alter the html to hardcode this in
+  // Assumption:   I shouldn't alter the html to hardcode things in
 
   const node = document.createElement("div");
   node.innerHTML = currentTemp;
@@ -121,12 +120,12 @@ function displayWeather(cityArray, valueCity) {
 
   //Weekly Forecast Conditions
 
-  //Assumption: I shouldn't alter the html to hardcode this weekly forecast in
+  //Assumption: I shouldn't alter the html to hardcode the weekly forecast divs in
   //Assumption:  I should place the weekly forecast into the "forecast" div
 
   const forecastNode = document.createElement("div");
 
-  // Put each day of the forecast data into its own div for later styling option
+  // Put each day of the forecast data into its own div for later styling options
   fiveDays.map((day, index) => {
     let nextDay = weatherWeekly.weekly[index].day;
 
@@ -153,9 +152,23 @@ function displayWeather(cityArray, valueCity) {
 }
 
 
-
-
 getWeatherData(
   "https://www.sfchronicle.com/external/weather/weather.json?callback=hdnWeatherJsonpCallback"
 );
+
+
+function darkMode() {
+  var localDay = new Date();
+  var localHour = localDay.getHours() 
+
+
+  if (localHour >= 20 || localHour <= 8) {
+    let docBody = document.querySelector("body");
+    let windowBody = document.querySelector("html");
+    docBody.style.color = "#ffff";
+    docBody.style.backgroundColor = "navy";
+    windowBody.style.backgroundColor = "navy";
+
+  }
+}
 
