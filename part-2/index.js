@@ -159,16 +159,30 @@ getWeatherData(
 
 function darkMode() {
   var localDay = new Date();
-  var localHour = localDay.getHours() 
-
+  var localHour = localDay.getHours();
+  console.log(localHour); 
 
   if (localHour >= 20 || localHour <= 8) {
-    let docBody = document.querySelector("body");
-    let windowBody = document.querySelector("html");
-    docBody.style.color = "#ffff";
-    docBody.style.backgroundColor = "navy";
-    windowBody.style.backgroundColor = "navy";
+    var docBody = document.querySelector("body");
+    var windowBody = document.querySelector("html");
+    var newClass = "dark-mode";
+    var arr;
+    var arr2;
+    arr = docBody.className.split(" ");
+    arr2 = windowBody.className.split(" ");
+      if (arr.indexOf(newClass) == -1) {
+        windowBody.className += " " + newClass;
+        docBody.className += " " + newClass;
+      }
+    } else {
+      var docBody = document.querySelector("body");
+      var windowBody = document.querySelector("html");
+      docBody.className = docBody.className.replace(/\bdarkmode\b/g, "");
+      windowBody.className = windowBody.className.replace(/\bdarkmode\b/g, "");
+
+    }
+
 
   }
-}
+
 
