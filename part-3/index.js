@@ -229,4 +229,4 @@ function darkMode() {
 /*Question #5: Other improvements - 
 - Make page mobile friendly - Done
 - Add temperature to the weekly forecast - Done
-- Other improvements - add Class Names to each dynamic class for   better CSS styles., add low values and high values to each day,  */
+- Other improvements - add Class Names to each dynamic class for   better CSS styles., add low values and high values to each day, refactor code - including names and references, test code  */
