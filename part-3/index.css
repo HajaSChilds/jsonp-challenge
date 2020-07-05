@@ -1,0 +1,93 @@
+html,body {
+    margin:  0;
+    padding: 10px;
+    height:100vh;
+    color:navy;
+    background-color: white;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size:   18px;
+    line-height: 1.36em;
+}
+
+.dark-mode {
+    color:white;
+    background-color:navy; 
+
+}
+
+.content {
+    height: 100%;
+}
+
+h1 { 
+    text-align: center;
+    font-size: 2.4em;
+}
+
+#menu {
+    text-align: center;
+}
+
+#cities {
+    font-size: 1.4em;   
+} 
+
+.todayTitle {
+    color:green;
+    font-weight: bold;
+    text-align: center;
+}
+
+#current,.todayTitle {
+    padding: 30px;
+    text-align: center;
+    font-size: 2em;
+}
+
+#current > div {
+    padding:10px;
+}
+
+
+#forecast > div {
+    display:flex;
+    justify-content:center;
+    padding: 50px 10px 0px 10px;
+    text-align: center;
+}
+
+#forecast > div > div {
+    width:20%;
+    min-height: 250px;
+    padding:20px;
+    font-size: 1.2em;
+    border: 2px navy solid;
+    background-color:green;
+    opacity: 70%;
+}
+
+@media only screen and (max-width:700px) {
+
+     #forecast {
+      justify-content: center;  
+      min-height: 300px;
+      width: 100%;
+      padding:0px;
+      margin: 0px;
+    }
+
+    #forecast > div  {
+        flex-direction: column;
+        justify-content: space-around;
+        padding: 30px;
+        width: 90%;   
+    }
+
+    #forecast > div > div {
+       width: 90%; 
+       justify-self: center;
+    }
+
+   
+    
+}
